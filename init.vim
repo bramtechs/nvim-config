@@ -64,13 +64,13 @@ nnoremap <leader>e :Explore<CR>
 nnoremap <leader>E :!explorer %:p:h<CR>
 
 nnoremap <C-x> :x<CR>
-nnoremap <F6> :vsplit<CR>:e /tmp/empty<CR>
-nnoremap <leader><F6> :split<CR>:e /tmp/empty<CR>
+nnoremap <F6> :vsplit<CR>
+nnoremap <leader><F6> :split<CR>
 
 " open terminal
-nnoremap t :terminal<CR>i
+nnoremap t :terminal<CR>i powershell<CR>
 " open terminal in split
-nnoremap <leader>t :vsplit<CR><C-w>l<CR>:terminal<CR>i
+nnoremap <leader>t :vsplit<CR><C-w>l<CR>:terminal<CR>i powershell<CR>
 
 nnoremap <leader>td :tabedit TODO.md<CR> 
 
