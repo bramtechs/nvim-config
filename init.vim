@@ -45,8 +45,8 @@ nnoremap <leader>fc :Commands<CR>
 nnoremap <leader>fL :Lines<CR>
 nnoremap <leader>fl :BLines<CR>
 
-nnoremap <F5> :!powershell ./run.ps1<CR>
-nnoremap <F2> :tabedit ~/AppData/Local/nvim/init.vim<CR>
+nnoremap <F5> :!sh ./run<CR>
+nnoremap <F2> :tabedit ~/.config/nvim/init.vim<CR>
 nnoremap <A-j> :tabprevious<CR>
 nnoremap <A-k> :tabnext<CR>
 nnoremap <A-n> :tabnew<CR>
@@ -60,17 +60,17 @@ nnoremap <leader>r :lcd %:p:h<CR>:!echo Moved instance to %:p:h<CR>
 " open built in explorer 
 nnoremap <leader>e :Explore<CR>
 
-" open Windows explorer at current dir
-nnoremap <leader>E :!explorer %:p:h<CR>
+" open Ranger explorer at current dir
+nnoremap <leader>E :!ranger %:p:h<CR>
 
 nnoremap <C-x> :x<CR>
 nnoremap <F6> :vsplit<CR>
 nnoremap <leader><F6> :split<CR>
 
 " open terminal
-nnoremap t :terminal<CR>i powershell<CR>
+nnoremap t :terminal<CR>i
 " open terminal in split
-nnoremap <leader>t :vsplit<CR><C-w>l<CR>:terminal<CR>i powershell<CR>
+nnoremap <leader>t :vsplit<CR><C-w>l<CR>:terminal<CR>i
 
 nnoremap <leader>td :tabedit TODO.md<CR> 
 
@@ -109,7 +109,7 @@ augroup user_colors
 augroup END
 colorscheme nightfox 
 
-" switch windows
+" switch windows more comfortably
 nnoremap <C-z> <C-W>
 
 " auto save

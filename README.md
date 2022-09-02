@@ -1,2 +1,2 @@
-# Windows version
-Check branch 'linux' for GNU/Linux.
+# GNU/Linux version
+Check branch 'main' for Windows.
