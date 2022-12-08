@@ -36,15 +36,9 @@ let mapleader = " "
 noremap j gj
 noremap k gk
 
-nnoremap <leader>ff :GFiles --recurse-submodules<CR>
-nnoremap <leader>fF :Files<CR>
-nnoremap <leader>fb :Buffers<CR>
-nnoremap <leader>fc :Commands<CR>
-nnoremap <leader>fL :Lines<CR>
-nnoremap <leader>fl :BLines<CR>
-
 nnoremap <F5> :!powershell ./run.ps1<CR>
 nnoremap <F2> :tabedit ~/AppData/Local/nvim/init.vim<CR>
+nnoremap <F8> :tabedit ~/Documents/TODO.md<CR>zR<CR>
 nnoremap <A-j> :tabprevious<CR>
 nnoremap <A-k> :tabnext<CR>
 nnoremap <A-n> :tabnew<CR>
@@ -61,7 +55,7 @@ nnoremap <leader>e :Explore<CR>
 " open Windows explorer at current dir
 nnoremap <leader>E :!explorer %:p:h<CR>
 
-nnoremap <C-x>k :x<CR>
+nnoremap <C-k> :x<CR>
 nnoremap <F6> :vsplit<CR>
 nnoremap <leader><F6> :split<CR>
 
@@ -81,8 +75,9 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 Plug 'morhetz/gruvbox'
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install()}}
-Plug 'junegunn/fzf.vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'ThePrimeagen/harpoon'
 
 Plug 'udalov/kotlin-vim'
 
@@ -116,6 +111,16 @@ colorscheme gruvbox
 
 " switch windows
 nnoremap <C-z> <C-W>
+
+" telescope
+lua << EOF
+    local builtin = require('telescope.builtin')
+    vim.keymap.set('n', '<leader>ff', builtin.git_files, {})
+    vim.keymap.set('n', '<leader>fF', builtin.find_files, {})
+    vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+    vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+    vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+EOF
 
 " zen mode
 lua << EOF
