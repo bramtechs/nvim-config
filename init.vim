@@ -24,8 +24,6 @@ set nowritebackup
 
 set incsearch
 set ignorecase
-set signcolumn=yes
-"set colorcolumn=80
 set cmdheight=2
 set laststatus=2
 
@@ -63,12 +61,12 @@ nnoremap <leader>e :Explore<CR>
 " open Windows explorer at current dir
 nnoremap <leader>E :!explorer %:p:h<CR>
 
-nnoremap <C-x> :x<CR>
+nnoremap <C-x>k :x<CR>
 nnoremap <F6> :vsplit<CR>
 nnoremap <leader><F6> :split<CR>
 
 " open terminal
-nnoremap t :terminal<CR>i powershell<CR>
+nnoremap T :terminal<CR>i powershell<CR>
 " open terminal in split
 nnoremap <leader>t :vsplit<CR><C-w>l<CR>:terminal<CR>i powershell<CR>
 
@@ -81,7 +79,6 @@ call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-Plug 'EdenEast/nightfox.nvim'
 Plug 'morhetz/gruvbox'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install()}}
@@ -93,27 +90,41 @@ Plug 'ray-x/go.nvim'
 Plug 'ray-x/guihua.lua'
 
 Plug 'vim-scripts/vim-auto-save'
+Plug 'https://github.com/preservim/vim-markdown.git'
 
 Plug 'andweeb/presence.nvim'
 
 Plug 'chrisbra/Colorizer'
 
-"Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+Plug 'nvim-orgmode/orgmode'
+
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+
+Plug 'folke/zen-mode.nvim'
 
 call plug#end()
 
 let g:seiya_auto_enable=1
 
-"colorscheme nightfox 
-highlight Normal ctermbg=NONE guibg=NONE
-augroup user_colors
-  autocmd!
-  autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
-augroup END
-colorscheme nightfox 
+colorscheme gruvbox
+
+"highlight Normal ctermbg=NONE guibg=NONE
+"augroup user_colors
+"  autocmd!
+"  autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
+"augroup END
 
 " switch windows
 nnoremap <C-z> <C-W>
+
+" zen mode
+lua << EOF
+  require("zen-mode").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
 
 " auto save
 let g:auto_save = 1  " enable AutoSave on Vim startup
@@ -124,6 +135,9 @@ let g:auto_save_silent = 1  " do not display the auto-save notification
 " markdown specific
 runtime markdown
 
+" convert org-definition to a markdown one
+nnoremap zd f:xhi<CR><ESC>
+
 " golang specific
 autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
 
@@ -131,16 +145,13 @@ autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "c","java", "lua", "rust" },
+  ensure_installed = { "c","java", "lua", "rust", "cpp" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
 
   -- Automatically install missing parsers when entering buffer
   auto_install = false,
-
-  -- List of parsers to ignore installing (for "all")
-  ignore_install = { "javascript" },
 
   ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
   -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
