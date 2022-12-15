@@ -15,6 +15,7 @@ set smartcase
 set nu
 set scrolloff=8
 set nohlsearch
+set list
 
 set noswapfile
 set undodir=~/.vim/undodir
@@ -30,12 +31,18 @@ set laststatus=2
 set updatetime=300
 set shortmess+=c
 
+set mousemodel=popup
+
+set updatetime=300
+set signcolumn=yes
+
 let mapleader = " " 
 
 " allow traversal of wrapped lines
 noremap j gj
 noremap k gk
 
+nnoremap <F4> :!powershell ./build.ps1<CR>
 nnoremap <F5> :!powershell ./run.ps1<CR>
 nnoremap <F2> :tabedit ~/AppData/Local/nvim/init.vim<CR>
 nnoremap <F8> :tabedit ~/Documents/TODO.md<CR>zR<CR>
@@ -47,7 +54,7 @@ nnoremap <leader>F :Format<CR>
 tnoremap <leader><Esc> <C-\><C-n>
 
 " relocate neovim 
-nnoremap <leader>r :lcd %:p:h<CR>:!echo Moved instance to %:p:h<CR>
+nnoremap <leader>R :lcd %:p:h<CR>:!echo Moved instance to %:p:h<CR>
 
 " open built in explorer 
 nnoremap <leader>e :Explore<CR>
@@ -55,7 +62,7 @@ nnoremap <leader>e :Explore<CR>
 " open Windows explorer at current dir
 nnoremap <leader>E :!explorer %:p:h<CR>
 
-nnoremap <C-k> :x<CR>
+nnoremap <C-F4> :x<CR>
 nnoremap <F6> :vsplit<CR>
 nnoremap <leader><F6> :split<CR>
 
@@ -66,13 +73,12 @@ nnoremap <leader>t :vsplit<CR><C-w>l<CR>:terminal<CR>i powershell<CR>
 
 nnoremap <leader>td :tabedit TODO.md<CR> 
 
-autocmd FileType markdown setlocal spell spelllang=en_us
-
 call plug#begin()
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 
+Plug 'EdenEast/nightfox.nvim' "
 Plug 'morhetz/gruvbox'
 
 Plug 'nvim-lua/plenary.nvim'
@@ -96,12 +102,18 @@ Plug 'nvim-orgmode/orgmode'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
 Plug 'folke/zen-mode.nvim'
+Plug 'folke/todo-comments.nvim'
+
+Plug 'itchyny/lightline.vim'
+
+Plug 'natecraddock/sessions.nvim'
 
 call plug#end()
 
 let g:seiya_auto_enable=1
 
 colorscheme gruvbox
+"colorscheme morning
 
 "highlight Normal ctermbg=NONE guibg=NONE
 "augroup user_colors
@@ -131,6 +143,13 @@ lua << EOF
   }
 EOF
 
+" sessions
+lua << EOF
+require("sessions").setup({
+    events = { "RemoteReply" }, -- do nothing
+})
+EOF
+
 " auto save
 let g:auto_save = 1  " enable AutoSave on Vim startup
 let g:auto_save_no_updatetime = 1  " do not change the 'updatetime' option
@@ -150,7 +169,7 @@ autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "c","java", "lua", "rust", "cpp" },
+  ensure_installed = { "c","java", "lua", "rust", "cpp", "javascript" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -178,9 +197,36 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = true,
   },
 }
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.haxe = {
+  install_info = {
+    url = "C:\\dev\\tree-sitter-haxe", -- local path or git repo
+    files = {"src/parser.c"},
+    -- optional entries:
+    branch = "main", -- default branch in case of git repo if different from master
+    generate_requires_npm = false, -- if stand-alone parser without npm dependencies
+    requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+  },
+  filetype = "hx", -- if filetype does not match the parser name
+}
 EOF
 
-" coc
+" todo-comments
+lua << EOF
+  require("todo-comments").setup {
+  }
+EOF
+
+" lightline status bar
+set noshowmode
+
+
+" almighty COC
+
+" May need for vim (not neovim) since coc.nvim calculate byte offset by count
+" utf-8 byte sequence.
+
+set encoding=utf-8
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
@@ -261,15 +307,22 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-" Applying codeAction to the selected region.
+" Applying code actions to the selected code block.
 " Example: `<leader>aap` for current paragraph
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
+" Remap keys for apply code actions at the cursor position.
+nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+" Remap keys for apply code actions affect whole buffer.
+nmap <leader>as  <Plug>(coc-codeaction-source)
+" Apply the most preferred quickfix action to fix diagnostic on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Remap keys for apply refactor code actions.
+nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
+xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
 
 " Run the Code Lens action on the current line.
 nmap <leader>cl  <Plug>(coc-codelens-action)
