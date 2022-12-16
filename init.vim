@@ -73,6 +73,14 @@ nnoremap <leader>t :vsplit<CR><C-w>l<CR>:terminal<CR>i powershell<CR>
 
 nnoremap <leader>td :tabedit TODO.md<CR> 
 
+" latex shortcuts
+nnoremap l% i\mathbin{\%}<ESC>
+nnoremap ls i\section{
+nnoremap lS i\subsection{
+nnoremap ld i\begin{document}<ESC>
+nnoremap lD i\end{document}<ESC>
+nnoremap lf i\[  \]<ESC>F[lli
+
 call plug#begin()
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
