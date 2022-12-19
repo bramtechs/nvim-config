@@ -1,7 +1,10 @@
 {
-  "haxe.modulePath": "C:\\HaxeToolkit\\haxe",
-  "markdownlint.config": {
-    "default": true,
-    "line_length": false
-  }
+    "haxe.modulePath": "C:\\HaxeToolkit\\haxe",
+    "markdownlint.config": {
+        "default": true,
+        "line_length": false
+    },
+    "coc.preferences.formatOnSave": false,
+    "prettier.tabWidth": 4,
+    "prettier.printWidth": 200
 }

@@ -4,9 +4,6 @@ set linebreak
 set ff=unix
 
 set relativenumber
-set tabstop=4 softtabstop=4
-set shiftwidth=4
-set expandtab
 set smartindent
 set guicursor:
 set hidden
@@ -74,12 +71,16 @@ nnoremap <leader>t :vsplit<CR><C-w>l<CR>:terminal<CR>i powershell<CR>
 nnoremap <leader>td :tabedit TODO.md<CR> 
 
 " latex shortcuts
-nnoremap l% i\mathbin{\%}<ESC>
-nnoremap ls i\section{
-nnoremap lS i\subsection{
-nnoremap ld i\begin{document}<ESC>
-nnoremap lD i\end{document}<ESC>
-nnoremap lf i\[  \]<ESC>F[lli
+nnoremap <leader>l% i\mathbin{\%}<ESC>
+nnoremap <leader>ls i\section{
+nnoremap <leader>lS i\subsection{
+nnoremap <leader>ld i\begin{document}<ESC>
+nnoremap <leader>lD i\end{document}<ESC>
+nnoremap <leader>lb i\textbf{
+nnoremap <leader>lf i\[  \]<ESC>F[lli
+
+" change line endings to spaces
+nnoremap <leader>ts :%s/\t/    /g<CR>
 
 call plug#begin()
 
@@ -168,7 +169,7 @@ let g:auto_save_silent = 1  " do not display the auto-save notification
 runtime markdown
 
 " convert org-definition to a markdown one
-nnoremap zd f:xhi<CR><ESC>
+nnoremap zd xxf:xhi<CR><ESC>
 
 " golang specific
 autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
@@ -392,3 +393,8 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+" coc should use these
+set tabstop=4 softtabstop=4
+set shiftwidth=4
+set expandtab
