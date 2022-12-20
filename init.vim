@@ -82,6 +82,8 @@ nnoremap <leader>lf i\[  \]<ESC>F[lli
 " change line endings to spaces
 nnoremap <leader>ts :%s/\t/    /g<CR>
 
+nnoremap <C-p> :Ouroboros<CR>
+
 call plug#begin()
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -92,7 +94,7 @@ Plug 'morhetz/gruvbox'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
-Plug 'ThePrimeagen/harpoon'
+Plug 'jakemason/ouroboros'
 
 Plug 'udalov/kotlin-vim'
 
@@ -123,6 +125,7 @@ let g:seiya_auto_enable=1
 
 colorscheme gruvbox
 "colorscheme morning
+
 
 "highlight Normal ctermbg=NONE guibg=NONE
 "augroup user_colors
@@ -228,7 +231,6 @@ EOF
 
 " lightline status bar
 set noshowmode
-
 
 " almighty COC
 
