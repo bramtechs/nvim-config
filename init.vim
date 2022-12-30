@@ -81,7 +81,6 @@ nnoremap <leader>lf i\[  \]<ESC>F[lli
 
 " change line endings to spaces
 nnoremap <leader>ts :%s/\t/    /g<CR>
-
 nnoremap <C-p> :Ouroboros<CR>
 
 call plug#begin()
@@ -104,7 +103,7 @@ Plug 'ray-x/guihua.lua'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'https://github.com/preservim/vim-markdown.git'
 
-Plug 'andweeb/presence.nvim'
+Plug 'habamax/vim-godot'
 
 Plug 'chrisbra/Colorizer'
 
@@ -123,18 +122,31 @@ call plug#end()
 
 let g:seiya_auto_enable=1
 
-colorscheme gruvbox
-"colorscheme morning
+"colorscheme gruvbox
+colorscheme carbonfox
 
 
-"highlight Normal ctermbg=NONE guibg=NONE
-"augroup user_colors
-"  autocmd!
-"  autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
-"augroup END
+highlight Normal ctermbg=NONE guibg=NONE
+augroup user_colors
+  autocmd!
+  autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
+augroup END
 
 " switch windows
 nnoremap <C-z> <C-W>
+
+" presence
+"lua << EOF
+"-- The setup config table shows all available config options with their default values:
+"require("presence"):setup({
+"    -- General options
+"    auto_update         = true,                       -- Update activity based on autocmd events (if `false`, map or manually execute `:lua package.loaded.presence:update()`)
+"    neovim_image_text   = "Vim my beloved", -- Text displayed when hovered over the Neovim image
+"    main_image          = "file",                   -- Main image display (either "neovim" or "file")
+"    enable_line_number  = true
+"})
+"
+"EOF
 
 " telescope
 lua << EOF
@@ -168,11 +180,20 @@ let g:auto_save_no_updatetime = 1  " do not change the 'updatetime' option
 let g:auto_save_in_insert_mode = 0  " do not save while in insert mode
 let g:auto_save_silent = 1  " do not display the auto-save notification
 
+" neovide
+" let g:neovide_refresh_rate = 144
+" let g:neovide_refresh_rate_idle = 5
+" let g:neovide_cursor_animation_length=0
+" let g:neovide_cursor_vfx_mode = "harpoon"
+
 " markdown specific
 runtime markdown
 
 " convert org-definition to a markdown one
 nnoremap zd xxf:xhi<CR><ESC>
+
+" open ~/TODO.md on startup
+autocmd VimEnter * :silent! tabedit ~/TODO.md
 
 " golang specific
 autocmd BufWritePre *.go :silent! lua require('go.format').goimport()

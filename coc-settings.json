@@ -6,5 +6,12 @@
     },
     "coc.preferences.formatOnSave": false,
     "prettier.tabWidth": 4,
-    "prettier.printWidth": 200
+    "prettier.printWidth": 200,
+    "languageserver": {
+        "godot": {
+            "host": "127.0.0.1",
+            "filetypes": ["gdscript"],
+            "port": 6008
+        }
+    }
 }
