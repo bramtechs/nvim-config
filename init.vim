@@ -138,22 +138,12 @@ nnoremap <C-z> <C-W>
 " presence
 "lua << EOF
 "-- The setup config table shows all available config options with their default values:
-"require("presence"):setup({
-"    -- General options
-"    auto_update         = true,                       -- Update activity based on autocmd events (if `false`, map or manually execute `:lua package.loaded.presence:update()`)
-"    neovim_image_text   = "Vim my beloved", -- Text displayed when hovered over the Neovim image
-"    main_image          = "file",                   -- Main image display (either "neovim" or "file")
-"    enable_line_number  = true
-"})
-"
-"EOF
-
-" telescope
 lua << EOF
     local builtin = require('telescope.builtin')
     vim.keymap.set('n', '<leader>ff', builtin.git_files, {})
     vim.keymap.set('n', '<leader>fF', builtin.find_files, {})
     vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+    vim.keymap.set('n', '<leader>fs', builtin.grep_string, {})
     vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
     vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 EOF
@@ -193,7 +183,7 @@ runtime markdown
 nnoremap zd xxf:xhi<CR><ESC>
 
 " open ~/TODO.md on startup
-autocmd VimEnter * :silent! tabedit ~/TODO.md
+"autocmd VimEnter * :silent! tabedit ~/TODO.md
 
 " golang specific
 autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
