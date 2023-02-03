@@ -83,6 +83,9 @@ nnoremap <leader>lf i\[  \]<ESC>F[lli
 nnoremap <leader>ts :%s/\t/    /g<CR>
 nnoremap <C-p> :Ouroboros<CR>
 
+" specific stuff for raylib game dev
+nnoremap <leader>rl :tabedit magma/src/magma.h<CR>:tabedit magma/raylib/src/raylib.h<CR>:tabedit magma/raylib/src/raymath.h<CR>
+
 call plug#begin()
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -123,7 +126,6 @@ call plug#end()
 let g:seiya_auto_enable=1
 
 colorscheme gruvbox
-"colorscheme terafox
 
 highlight Normal ctermbg=NONE guibg=NONE
 augroup user_colors
@@ -182,7 +184,7 @@ runtime markdown
 nnoremap zd xxf:xhi<CR><ESC>
 
 " open ~/TODO.md on startup
-"autocmd VimEnter * :silent! tabedit ~/TODO.md
+" autocmd VimEnter * :silent! tabedit ~/TODO.md
 
 " golang specific
 autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
