@@ -122,9 +122,8 @@ call plug#end()
 
 let g:seiya_auto_enable=1
 
-"colorscheme gruvbox
-colorscheme carbonfox
-
+colorscheme gruvbox
+"colorscheme terafox
 
 highlight Normal ctermbg=NONE guibg=NONE
 augroup user_colors
