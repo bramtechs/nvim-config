@@ -84,7 +84,7 @@ nnoremap <leader>ts :%s/\t/    /g<CR>
 nnoremap <C-p> :Ouroboros<CR>
 
 " specific stuff for raylib game dev
-nnoremap <leader>rl :tabedit magma/raylib/src/raylib.h<CR>:tabedit magma/raylib/src/raymath.h<CR>
+nnoremap <leader>rl :tabedit magma/src/magma.h<CR>:tabedit magma/raylib/src/raylib.h<CR>:tabedit magma/raylib/src/raymath.h<CR>
 
 call plug#begin()
 
