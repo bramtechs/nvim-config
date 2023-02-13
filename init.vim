@@ -125,9 +125,9 @@ call plug#end()
 
 let g:seiya_auto_enable=1
 
+
 colorscheme hotline
-"colorscheme carbonfox
-"colorscheme duskfox
+
 
 highlight Normal ctermbg=NONE guibg=NONE
 augroup user_colors
