@@ -84,7 +84,7 @@ nnoremap <leader>ts :%s/\t/    /g<CR>
 nnoremap <C-p> :Ouroboros<CR>
 
 " specific stuff for raylib game dev
-nnoremap <leader>rl :tabedit magma/src/magma.h<CR>:tabedit magma/raylib/src/raylib.h<CR>:tabedit magma/raylib/src/raymath.h<CR>
+nnoremap <leader>rl :tabedit magma/src/magma.h<CR>:tabedit magma/src/magma_extra.h<CR>:tabedit magma/raylib/src/raylib.h<CR>:tabedit magma/raylib/src/raymath.h<CR>
 
 call plug#begin()
 
@@ -121,17 +121,23 @@ Plug 'itchyny/lightline.vim'
 
 Plug 'natecraddock/sessions.nvim'
 
+" more themes
+Plug 'senran101604/neotrix.vim'
+Plug 'bratpeki/truedark-vim'
+Plug 'redshifttt/tonight.nvim'
+Plug 'ronwoch/hotline-vim'
+
 call plug#end()
 
 let g:seiya_auto_enable=1
 
-colorscheme gruvbox
+colorscheme hotline
 
-highlight Normal ctermbg=NONE guibg=NONE
-augroup user_colors
-  autocmd!
-  autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
-augroup END
+" highlight Normal ctermbg=NONE guibg=NONE
+" augroup user_colors
+"   autocmd!
+"   autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
+" augroup END
 
 " switch windows
 nnoremap <C-z> <C-W>
