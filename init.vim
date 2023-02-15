@@ -79,8 +79,10 @@ nnoremap <leader>lD i\end{document}<ESC>
 nnoremap <leader>lb i\textbf{
 nnoremap <leader>lf i\[  \]<ESC>F[lli
 
-" change line endings to spaces
+" change tabs to spaces
 nnoremap <leader>ts :%s/\t/    /g<CR>
+
+" switch between source/header
 nnoremap <C-p> :Ouroboros<CR>
 
 " specific stuff for raylib game dev
