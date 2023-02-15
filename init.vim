@@ -33,7 +33,7 @@ set mousemodel=popup
 set updatetime=300
 set signcolumn=yes
 
-let mapleader = " " 
+let mapleader = " "
 
 " allow traversal of wrapped lines
 noremap j gj
@@ -91,8 +91,9 @@ call plug#begin()
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 
-Plug 'EdenEast/nightfox.nvim' "
+Plug 'EdenEast/nightfox.nvim'
 Plug 'morhetz/gruvbox'
+Plug 'ronwoch/hotline-vim'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
@@ -413,8 +414,8 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-
-" coc should use these
+"
+"" coc should use these
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
