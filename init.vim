@@ -35,13 +35,28 @@ set signcolumn=yes
 
 let mapleader = " "
 
+if !exists("g:os")
+    if has("win64") || has("win32") || has("win16")
+        let g:os = "Windows"
+    else
+        let g:os = substitute(system('uname'), '\n', '', '')
+    endif
+endif
+
 " allow traversal of wrapped lines
 noremap j gj
 noremap k gk
 
-nnoremap <F4> :!powershell ./build.ps1<CR>
-nnoremap <F5> :!powershell ./run.ps1<CR>
-nnoremap <F2> :tabedit ~/AppData/Local/nvim/init.vim<CR>
+if g:os == "Windows"
+    nnoremap <F2> :tabedit ~/AppData/Local/nvim/init.vim<CR>
+    nnoremap <F4> :!powershell ./build.ps1<CR>
+    nnoremap <F5> :!powershell ./run.ps1<CR>
+else
+    nnoremap <F4> :!powershell ./build.sh<CR>
+    nnoremap <F5> :!powershell ./run.sh<CR>
+    nnoremap <F2> :tabedit ~/.config/nvim/init.vim<CR>
+endif
+
 nnoremap <F8> :tabedit ~/Documents/TODO.md<CR>zR<CR>
 nnoremap <A-j> :tabprevious<CR>
 nnoremap <A-k> :tabnext<CR>
@@ -57,6 +72,7 @@ nnoremap <leader>R :lcd %:p:h<CR>:!echo Moved instance to %:p:h<CR>
 nnoremap <leader>e :Explore<CR>
 
 " open Windows explorer at current dir
+
 nnoremap <leader>E :!explorer %:p:h<CR>
 
 nnoremap <C-F4> :x<CR>
@@ -64,9 +80,14 @@ nnoremap <F6> :vsplit<CR>
 nnoremap <leader><F6> :split<CR>
 
 " open terminal
-nnoremap T :terminal<CR>i powershell<CR>
 " open terminal in split
-nnoremap <leader>t :vsplit<CR><C-w>l<CR>:terminal<CR>i powershell<CR>
+if g:os == "Windows"
+    nnoremap T :terminal<CR>i powershell<CR>
+    nnoremap <leader>t :vsplit<CR><C-w>l<CR>:terminal<CR>i powershell<CR>
+else
+    nnoremap T :terminal<CR>i
+    nnoremap <leader>t :vsplit<CR><C-w>l<CR>:terminal<CR>i
+endif
 
 nnoremap <leader>td :tabedit TODO.md<CR> 
 
