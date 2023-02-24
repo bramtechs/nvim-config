@@ -35,13 +35,28 @@ set signcolumn=yes
 
 let mapleader = " " 
 
+if !exists("g:os")
+    if has("win64") || has("win32") || has("win16")
+        let g:os = "Windows"
+    else
+        let g:os = substitute(system('uname'), '\n', '', '')
+    endif
+endif
+
 " allow traversal of wrapped lines
 noremap j gj
 noremap k gk
 
-nnoremap <F4> :!powershell ./build.ps1<CR>
-nnoremap <F5> :!powershell ./run.ps1<CR>
-nnoremap <F2> :tabedit ~/AppData/Local/nvim/init.vim<CR>
+if g:os == "Windows"
+    nnoremap <F2> :tabedit ~/AppData/Local/nvim/init.vim<CR>
+    nnoremap <F4> :!powershell ~/AppData/Local/nvim/takeoff/takeoff.bat build<CR>
+    nnoremap <F5> :!powershell ~/AppData/Local/nvim/takeoff/takeoff.bat run<CR>
+else
+    nnoremap <F4> :!powershell ~/.config/nvim/takeoff/takeoff.bat build<CR>
+    nnoremap <F5> :!powershell ~/.config/nvim/nvim/takeoff/takeoff.bat run<CR>
+    nnoremap <F2> :tabedit ~/.config/nvim/init.vim<CR>
+endif
+
 nnoremap <F8> :tabedit ~/Documents/TODO.md<CR>zR<CR>
 nnoremap <A-j> :tabprevious<CR>
 nnoremap <A-k> :tabnext<CR>
@@ -57,6 +72,7 @@ nnoremap <leader>R :lcd %:p:h<CR>:!echo Moved instance to %:p:h<CR>
 nnoremap <leader>e :Explore<CR>
 
 " open Windows explorer at current dir
+
 nnoremap <leader>E :!explorer %:p:h<CR>
 
 nnoremap <C-F4> :x<CR>
@@ -64,9 +80,14 @@ nnoremap <F6> :vsplit<CR>
 nnoremap <leader><F6> :split<CR>
 
 " open terminal
-nnoremap T :terminal<CR>i powershell<CR>
 " open terminal in split
-nnoremap <leader>t :vsplit<CR><C-w>l<CR>:terminal<CR>i powershell<CR>
+if g:os == "Windows"
+    nnoremap T :terminal<CR>i powershell<CR>
+    nnoremap <leader>t :vsplit<CR><C-w>l<CR>:terminal<CR>i powershell<CR>
+else
+    nnoremap T :terminal<CR>i
+    nnoremap <leader>t :vsplit<CR><C-w>l<CR>:terminal<CR>i
+endif
 
 nnoremap <leader>td :tabedit TODO.md<CR> 
 
@@ -79,12 +100,14 @@ nnoremap <leader>lD i\end{document}<ESC>
 nnoremap <leader>lb i\textbf{
 nnoremap <leader>lf i\[  \]<ESC>F[lli
 
-" change line endings to spaces
+" change tabs to spaces
 nnoremap <leader>ts :%s/\t/    /g<CR>
+
+" switch between source/header
 nnoremap <C-p> :Ouroboros<CR>
 
 " specific stuff for raylib game dev
-nnoremap <leader>rl :tabedit magma/src/magma.h<CR>:tabedit :tabedit magma/src/magma_extra.h<CR>:tabedit magma/raylib/src/raylib.h<CR>:tabedit magma/raylib/src/raymath.h<CR>
+nnoremap <leader>rl :tabedit magma/src/magma.h<CR>:tabedit magma/src/magma_extra.h<CR>:tabedit magma/raylib/src/raylib.h<CR>:tabedit magma/raylib/src/raymath.h<CR>
 
 call plug#begin()
 
@@ -120,6 +143,12 @@ Plug 'folke/todo-comments.nvim'
 Plug 'itchyny/lightline.vim'
 
 Plug 'natecraddock/sessions.nvim'
+
+" more themes
+Plug 'senran101604/neotrix.vim'
+Plug 'bratpeki/truedark-vim'
+Plug 'redshifttt/tonight.nvim'
+Plug 'ronwoch/hotline-vim'
 
 call plug#end()
 
@@ -405,7 +434,7 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-" coc should use these
+"" coc should use these
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
