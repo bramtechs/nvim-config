@@ -63,7 +63,10 @@ nnoremap <A-k> :tabnext<CR>
 nnoremap <A-n> :tabnew<CR>
 nnoremap <leader><F2> :so $MYVIMRC<CR>
 nnoremap <leader>F :Format<CR>
-tnoremap <leader><Esc> <C-\><C-n>
+nnoremap <leader><Esc> <C-\><C-n>
+
+" remove comments after a line
+nnoremap <S-E> 0f;lv$hx
 
 " relocate neovim 
 nnoremap <leader>R :lcd %:p:h<CR>:!echo Moved instance to %:p:h<CR>
@@ -155,6 +158,7 @@ call plug#end()
 let g:seiya_auto_enable=1
 
 colorscheme hotline
+"colorscheme nightfox
 
 "highlight Normal ctermbg=NONE guibg=NONE
 "augroup user_colors
