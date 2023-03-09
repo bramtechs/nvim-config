@@ -32,6 +32,7 @@ set mousemodel=popup
 
 set updatetime=300
 set signcolumn=yes
+set spelllang=en_us,nl
 
 let mapleader = " " 
 
@@ -66,7 +67,7 @@ nnoremap <leader>F :Format<CR>
 tnoremap <leader><Esc> <C-\><C-n>
 
 " remove comments after a line
-nnoremap <S-E> 0f;lv$hx
+nnoremap <S-E> 0f;lv$hx0
 
 " relocate neovim 
 nnoremap <leader>R :lcd %:p:h<CR>:!echo Moved instance to %:p:h<CR>
@@ -157,7 +158,7 @@ call plug#end()
 
 let g:seiya_auto_enable=1
 
-colorscheme hotline
+colorscheme duskfox
 "colorscheme nightfox
 
 "highlight Normal ctermbg=NONE guibg=NONE
