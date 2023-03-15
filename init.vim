@@ -53,8 +53,8 @@ if g:os == "Windows"
     nnoremap <F4> :!powershell ~/AppData/Local/nvim/takeoff/takeoff.bat build<CR>
     nnoremap <F5> :!powershell ~/AppData/Local/nvim/takeoff/takeoff.bat run<CR>
 else
-    nnoremap <F4> :!powershell ~/.config/nvim/takeoff/takeoff.bat build<CR>
-    nnoremap <F5> :!powershell ~/.config/nvim/nvim/takeoff/takeoff.bat run<CR>
+    nnoremap <F4> :!sh ~/.config/nvim/takeoff/takeoff.sh build<CR>
+    nnoremap <F5> :!sh ~/.config/nvim/nvim/takeoff/takeoff.sh run<CR>
     nnoremap <F2> :tabedit ~/.config/nvim/init.vim<CR>
 endif
 
@@ -161,7 +161,6 @@ call plug#end()
 let g:seiya_auto_enable=1
 
 colorscheme gruvbox
-"colorscheme nightfox
 
 "highlight Normal ctermbg=NONE guibg=NONE
 "augroup user_colors
