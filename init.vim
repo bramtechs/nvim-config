@@ -53,8 +53,8 @@ if g:os == "Windows"
     nnoremap <F4> :!powershell ~/AppData/Local/nvim/takeoff/takeoff.bat build<CR>
     nnoremap <F5> :!powershell ~/AppData/Local/nvim/takeoff/takeoff.bat run<CR>
 else
-    nnoremap <F4> :!sh ~/.config/nvim/takeoff/takeoff.sh build<CR>
-    nnoremap <F5> :!sh ~/.config/nvim/nvim/takeoff/takeoff.sh run<CR>
+    nnoremap <F4> :!~/.config/nvim/takeoff/takeoff.sh build<CR>
+    nnoremap <F5> :!~/.config/nvim/nvim/takeoff/takeoff.sh run<CR>
     nnoremap <F2> :tabedit ~/.config/nvim/init.vim<CR>
 endif
 
@@ -64,7 +64,7 @@ nnoremap <A-k> :tabnext<CR>
 nnoremap <A-n> :tabnew<CR>
 nnoremap <leader><F2> :so $MYVIMRC<CR>
 nnoremap <leader>F :Format<CR>
-tnoremap <leader><Esc> <C-\><C-n>
+tnoremap <leader><Backspace> <C-\><C-n>
 
 " remove comments after a line
 nnoremap <S-E> 0f;lv$hx0
