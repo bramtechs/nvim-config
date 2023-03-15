@@ -64,7 +64,7 @@ nnoremap <A-k> :tabnext<CR>
 nnoremap <A-n> :tabnew<CR>
 nnoremap <leader><F2> :so $MYVIMRC<CR>
 nnoremap <leader>F :Format<CR>
-tnoremap <leader><Backspace> <C-\><C-n>
+tnoremap <leader><Esc> <C-\><C-n>
 
 " remove comments after a line
 nnoremap <S-E> 0f;lv$hx0
