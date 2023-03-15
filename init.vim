@@ -76,12 +76,14 @@ nnoremap <leader>R :lcd %:p:h<CR>:!echo Moved instance to %:p:h<CR>
 nnoremap <leader>e :Explore<CR>
 
 " open Windows explorer at current dir
-
 nnoremap <leader>E :!explorer %:p:h<CR>
 
 nnoremap <C-F4> :x<CR>
 nnoremap <F6> :vsplit<CR>
 nnoremap <leader><F6> :split<CR>
+
+" actually use vlang filetype 
+au BufRead,BufNewFile *.v   set filetype=vlang
 
 " open terminal
 " open terminal in split
@@ -158,7 +160,7 @@ call plug#end()
 
 let g:seiya_auto_enable=1
 
-colorscheme duskfox
+colorscheme gruvbox
 "colorscheme nightfox
 
 "highlight Normal ctermbg=NONE guibg=NONE
