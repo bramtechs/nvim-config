@@ -115,6 +115,10 @@ nnoremap <C-p> :Ouroboros<CR>
 " specific stuff for raylib game dev
 nnoremap <leader>rl :tabedit magma/src/magma.h<CR>:tabedit magma/src/magma_extra.h<CR>:tabedit magma/raylib/src/raylib.h<CR>:tabedit magma/raylib/src/raymath.h<CR>
 
+" enable discord-rich presence
+nnoremap <leader>d :CocCommand rpc.enable<CR>
+nnoremap <leader>D :CocCommand rpc.disable<CR>
+
 call plug#begin()
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -172,8 +176,6 @@ colorscheme gruvbox
 nnoremap <C-z> <C-W>
 
 " presence
-"lua << EOF
-"-- The setup config table shows all available config options with their default values:
 lua << EOF
     local builtin = require('telescope.builtin')
     vim.keymap.set('n', '<leader>ff', builtin.git_files, {})
@@ -225,7 +227,7 @@ autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = "all",
+  -- ensure_installed = "all",
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = true,
@@ -233,30 +235,17 @@ require'nvim-treesitter.configs'.setup {
   -- Automatically install missing parsers when entering buffer
   auto_install = true,
 
-  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
   highlight = {
     -- `false` will disable the whole extension
     enable = true,
-
-    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-    -- the name of the parser)
-    -- list of language that will be disabled
-    -- disable = { "c", "rust" },
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = true,
   },
 }
+EOF
 
 " todo-comments
 lua << EOF
-  require("todo-comments").setup {
+  require('todo-comments').setup {
   }
 EOF
 

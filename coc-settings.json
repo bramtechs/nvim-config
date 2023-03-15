@@ -1,5 +1,4 @@
 {
-    "haxe.modulePath": "C:\\HaxeToolkit\\haxe",
     "markdownlint.config": {
         "default": true,
         "line_length": false
