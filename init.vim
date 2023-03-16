@@ -53,8 +53,8 @@ if g:os == "Windows"
     nnoremap <F4> :!powershell ~/AppData/Local/nvim/takeoff/takeoff.bat build<CR>
     nnoremap <F5> :!powershell ~/AppData/Local/nvim/takeoff/takeoff.bat run<CR>
 else
-    nnoremap <F4> :!sh ~/.config/nvim/takeoff/takeoff.sh build<CR>
-    nnoremap <F5> :!sh ~/.config/nvim/nvim/takeoff/takeoff.sh run<CR>
+    nnoremap <F4> :!~/.config/nvim/takeoff/takeoff.sh build<CR>
+    nnoremap <F5> :!~/.config/nvim/nvim/takeoff/takeoff.sh run<CR>
     nnoremap <F2> :tabedit ~/.config/nvim/init.vim<CR>
 endif
 
@@ -115,6 +115,10 @@ nnoremap <C-p> :Ouroboros<CR>
 " specific stuff for raylib game dev
 nnoremap <leader>rl :tabedit magma/src/magma.h<CR>:tabedit magma/src/magma_extra.h<CR>:tabedit magma/raylib/src/raylib.h<CR>:tabedit magma/raylib/src/raymath.h<CR>
 
+" enable discord-rich presence
+nnoremap <leader>d :CocCommand rpc.enable<CR>
+nnoremap <leader>D :CocCommand rpc.disable<CR>
+
 call plug#begin()
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -172,8 +176,6 @@ colorscheme gruvbox
 nnoremap <C-z> <C-W>
 
 " presence
-"lua << EOF
-"-- The setup config table shows all available config options with their default values:
 lua << EOF
     local builtin = require('telescope.builtin')
     vim.keymap.set('n', '<leader>ff', builtin.git_files, {})
@@ -225,51 +227,25 @@ autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "c","java", "lua", "rust", "cpp", "javascript" },
+  -- ensure_installed = "all",
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
+  sync_install = true,
 
   -- Automatically install missing parsers when entering buffer
-  auto_install = false,
-
-  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+  auto_install = true,
 
   highlight = {
     -- `false` will disable the whole extension
     enable = true,
-
-    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-    -- the name of the parser)
-    -- list of language that will be disabled
-    -- disable = { "c", "rust" },
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = true,
   },
-}
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.haxe = {
-  install_info = {
-    url = "C:\\dev\\tree-sitter-haxe", -- local path or git repo
-    files = {"src/parser.c"},
-    -- optional entries:
-    branch = "main", -- default branch in case of git repo if different from master
-    generate_requires_npm = false, -- if stand-alone parser without npm dependencies
-    requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
-  },
-  filetype = "hx", -- if filetype does not match the parser name
 }
 EOF
 
 " todo-comments
 lua << EOF
-  require("todo-comments").setup {
+  require('todo-comments').setup {
   }
 EOF
 
