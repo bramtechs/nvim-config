@@ -1,3 +1,4 @@
+" TODO: add way to let coc auto install list of packages
 set number
 set nowrap
 set linebreak
@@ -22,7 +23,7 @@ set nowritebackup
 
 set incsearch
 set ignorecase
-set cmdheight=2
+set cmdheight=1
 set laststatus=2
 
 set updatetime=300
@@ -84,6 +85,9 @@ nnoremap <leader><F6> :split<CR>
 
 " actually use vlang filetype 
 au BufRead,BufNewFile *.v   set filetype=vlang
+
+" threat HolyC as regular C (blasphomy)
+au BufRead, BufNewFile *.HC set filetype=c
 
 " open terminal
 " open terminal in split
@@ -164,13 +168,15 @@ call plug#end()
 
 let g:seiya_auto_enable=1
 
-colorscheme gruvbox
+colorscheme dayfox
 
-"highlight Normal ctermbg=NONE guibg=NONE
-"augroup user_colors
-"  autocmd!
-"  autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
-"augroup END
+if 0
+    highlight Normal ctermbg=NONE guibg=NONE
+    augroup user_colors
+      autocmd!
+      autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
+    augroup END
+endif
 
 " switch windows
 nnoremap <C-z> <C-W>
