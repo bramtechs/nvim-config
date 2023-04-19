@@ -1,4 +1,3 @@
-" TODO: add way to let coc auto install list of packages
 set number
 set nowrap
 set linebreak
@@ -34,6 +33,8 @@ set mousemodel=popup
 set updatetime=300
 set signcolumn=yes
 set spelllang=en_us,nl
+
+set autoread
 
 let mapleader = " " 
 
@@ -168,9 +169,9 @@ call plug#end()
 
 let g:seiya_auto_enable=1
 
-colorscheme dayfox
+colorscheme nightfox
 
-if 0
+if 1
     highlight Normal ctermbg=NONE guibg=NONE
     augroup user_colors
       autocmd!
