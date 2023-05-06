@@ -60,7 +60,7 @@ else
     nnoremap <F2> :tabedit ~/.config/nvim/init.vim<CR>
 endif
 
-nnoremap <F8> :tabedit ~/Documents/TODO.md<CR>zR<CR>
+nnoremap <F8> :tabedit ~/TODO.md<CR>zR<CR>
 nnoremap <A-j> :tabprevious<CR>
 nnoremap <A-k> :tabnext<CR>
 nnoremap <A-n> :tabnew<CR>
@@ -101,7 +101,7 @@ else
     nnoremap <leader>t :vsplit<CR><C-w>l<CR>:terminal<CR>i
 endif
 
-nnoremap <leader>td :tabedit TODO.md<CR> 
+nnoremap <leader>td :tabedit ~/TODO.md<CR> 
 
 " latex shortcuts
 nnoremap <leader>l% i\mathbin{\%}<ESC>
@@ -170,7 +170,7 @@ call plug#end()
 
 let g:seiya_auto_enable=1
 
-colorscheme nightfox
+colorscheme hotline
 
 if 1
     highlight Normal ctermbg=NONE guibg=NONE
