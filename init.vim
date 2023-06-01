@@ -60,7 +60,7 @@ else
     nnoremap <F2> :tabedit ~/.config/nvim/init.vim<CR>
 endif
 
-nnoremap <F8> :tabedit ~/Documents/TODO.md<CR>zR<CR>
+nnoremap <F8> :tabedit ~/TODO.md<CR>zR<CR>
 nnoremap <A-j> :tabprevious<CR>
 nnoremap <A-k> :tabnext<CR>
 nnoremap <A-n> :tabnew<CR>
@@ -101,7 +101,7 @@ else
     nnoremap <leader>t :vsplit<CR><C-w>l<CR>:terminal<CR>i
 endif
 
-nnoremap <leader>td :tabedit TODO.md<CR> 
+nnoremap <leader>td :tabedit ~/TODO.md<CR> 
 
 " latex shortcuts
 nnoremap <leader>l% i\mathbin{\%}<ESC>
@@ -117,6 +117,10 @@ nnoremap <leader>ts :%s/\t/    /g<CR>
 
 " switch between source/header
 nnoremap <C-p> :Ouroboros<CR>
+
+" theme switching
+nnoremap <A-d> :colorscheme dayfox<CR>
+nnoremap <A-h> :colorscheme hotline<CR>
 
 " specific stuff for raylib game dev
 nnoremap <leader>rl :tabedit magma/src/magma.h<CR>:tabedit magma/src/magma_extra.h<CR>:tabedit magma/raylib/src/raylib.h<CR>:tabedit magma/raylib/src/raymath.h<CR>
@@ -138,6 +142,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'jakemason/ouroboros'
 
+Plug 'github/copilot.vim'
 Plug 'udalov/kotlin-vim'
 
 Plug 'ray-x/go.nvim'
@@ -170,7 +175,7 @@ call plug#end()
 
 let g:seiya_auto_enable=1
 
-colorscheme nightfox
+colorscheme duskfox
 
 if 1
     highlight Normal ctermbg=NONE guibg=NONE
