@@ -125,7 +125,6 @@ nnoremap <leader>D :CocCommand rpc.disable<CR>
 
 call plug#begin()
 
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 
 Plug 'morhetz/gruvbox'
@@ -218,23 +217,6 @@ nnoremap zd xxf:xhi<CR><ESC>
 
 " golang specific
 autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
-
-" treesitter
-lua << EOF
-require'nvim-treesitter.configs'.setup {
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = true,
-
-  -- Automatically install missing parsers when entering buffer
-  auto_install = true,
-
-  highlight = {
-    -- `false` will disable the whole extension
-    enable = true,
-    additional_vim_regex_highlighting = true,
-  },
-}
-EOF
 
 " lightline status bar
 set noshowmode
