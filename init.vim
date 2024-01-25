@@ -115,15 +115,9 @@ nnoremap <leader>lf i\[  \]<ESC>F[lli
 " change tabs to spaces
 nnoremap <leader>ts :%s/\t/    /g<CR>
 
-" switch between source/header
-nnoremap <C-p> :Ouroboros<CR>
-
 " theme switching
 nnoremap <A-d> :colorscheme dayfox<CR>
 nnoremap <A-h> :colorscheme hotline<CR>
-
-" specific stuff for raylib game dev
-nnoremap <leader>rl :tabedit magma/src/magma.h<CR>:tabedit magma/src/magma_extra.h<CR>:tabedit magma/raylib/src/raylib.h<CR>:tabedit magma/raylib/src/raymath.h<CR>
 
 " enable discord-rich presence
 nnoremap <leader>d :CocCommand rpc.enable<CR>
@@ -134,23 +128,13 @@ call plug#begin()
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 
-Plug 'EdenEast/nightfox.nvim'
 Plug 'morhetz/gruvbox'
 Plug 'ronwoch/hotline-vim'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
-Plug 'jakemason/ouroboros'
-
-Plug 'github/copilot.vim'
-Plug 'udalov/kotlin-vim'
-
-Plug 'ray-x/go.nvim'
-Plug 'ray-x/guihua.lua'
 
 Plug 'vim-scripts/vim-auto-save'
-
-Plug 'habamax/vim-godot'
 
 Plug 'chrisbra/Colorizer'
 
@@ -159,7 +143,6 @@ Plug 'nvim-orgmode/orgmode'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
 Plug 'folke/zen-mode.nvim'
-Plug 'folke/todo-comments.nvim'
 
 Plug 'itchyny/lightline.vim'
 
@@ -175,7 +158,7 @@ call plug#end()
 
 let g:seiya_auto_enable=1
 
-colorscheme duskfox
+colorscheme gruvbox
 
 if 1
     highlight Normal ctermbg=NONE guibg=NONE
@@ -251,12 +234,6 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = true,
   },
 }
-EOF
-
-" todo-comments
-lua << EOF
-  require('todo-comments').setup {
-  }
 EOF
 
 " lightline status bar
