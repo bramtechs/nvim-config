@@ -139,8 +139,6 @@ Plug 'chrisbra/Colorizer'
 
 Plug 'nvim-orgmode/orgmode'
 
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-
 Plug 'folke/zen-mode.nvim'
 
 Plug 'itchyny/lightline.vim'
