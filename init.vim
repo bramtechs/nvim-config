@@ -22,7 +22,7 @@ set nowritebackup
 
 set incsearch
 set ignorecase
-set cmdheight=1
+set cmdheight=2
 set laststatus=2
 
 set updatetime=300
@@ -32,45 +32,23 @@ set mousemodel=popup
 
 set updatetime=300
 set signcolumn=yes
-set spelllang=en_us,nl
-
-set autoread
 
 let mapleader = " " 
-
-if !exists("g:os")
-    if has("win64") || has("win32") || has("win16")
-        let g:os = "Windows"
-    else
-        let g:os = substitute(system('uname'), '\n', '', '')
-    endif
-endif
 
 " allow traversal of wrapped lines
 noremap j gj
 noremap k gk
 
-if g:os == "Windows"
-    nnoremap <F2> :tabedit ~/AppData/Local/nvim/init.vim<CR>
-    nnoremap <F4> :!powershell ~/AppData/Local/nvim/takeoff/takeoff.bat build<CR>
-    nnoremap <F5> :!powershell ~/AppData/Local/nvim/takeoff/takeoff.bat run<CR>
-else
-    nnoremap <F4> :!~/.config/nvim/takeoff/takeoff.sh build<CR>
-    nnoremap <F5> :!~/.config/nvim/nvim/takeoff/takeoff.sh run<CR>
-    nnoremap <F2> :tabedit ~/.config/nvim/init.vim<CR>
-endif
-
-nnoremap <F8> :tabedit ~/TODO.md<CR>zR<CR>
+nnoremap <F4> :!powershell ./build.ps1<CR>
+nnoremap <F5> :!powershell ./run.ps1<CR>
+nnoremap <F2> :tabedit ~/AppData/Local/nvim/init.vim<CR>
+nnoremap <F8> :tabedit ~/Documents/TODO.md<CR>zR<CR>
 nnoremap <A-j> :tabprevious<CR>
 nnoremap <A-k> :tabnext<CR>
 nnoremap <A-n> :tabnew<CR>
 nnoremap <leader><F2> :so $MYVIMRC<CR>
 nnoremap <leader>F :Format<CR>
-nnoremap <leader><Return> :e<CR>
 tnoremap <leader><Esc> <C-\><C-n>
-
-" remove comments after a line
-nnoremap <S-E> 0f;lv$hx0
 
 " relocate neovim 
 nnoremap <leader>R :lcd %:p:h<CR>:!echo Moved instance to %:p:h<CR>
@@ -85,23 +63,12 @@ nnoremap <C-F4> :x<CR>
 nnoremap <F6> :vsplit<CR>
 nnoremap <leader><F6> :split<CR>
 
-" actually use vlang filetype 
-au BufRead,BufNewFile *.v   set filetype=vlang
-
-" threat HolyC as regular C (blasphomy)
-au BufRead, BufNewFile *.HC set filetype=c
-
 " open terminal
+nnoremap T :terminal<CR>i powershell<CR>
 " open terminal in split
-if g:os == "Windows"
-    nnoremap T :terminal<CR>i powershell<CR>
-    nnoremap <leader>t :vsplit<CR><C-w>l<CR>:terminal<CR>i powershell<CR>
-else
-    nnoremap T :terminal<CR>i
-    nnoremap <leader>t :vsplit<CR><C-w>l<CR>:terminal<CR>i
-endif
+nnoremap <leader>t :vsplit<CR><C-w>l<CR>:terminal<CR>i powershell<CR>
 
-nnoremap <leader>td :tabedit ~/TODO.md<CR> 
+nnoremap <leader>td :tabedit TODO.md<CR> 
 
 " latex shortcuts
 nnoremap <leader>l% i\mathbin{\%}<ESC>
@@ -112,69 +79,69 @@ nnoremap <leader>lD i\end{document}<ESC>
 nnoremap <leader>lb i\textbf{
 nnoremap <leader>lf i\[  \]<ESC>F[lli
 
-" change tabs to spaces
+" change line endings to spaces
 nnoremap <leader>ts :%s/\t/    /g<CR>
 
-" theme switching
-nnoremap <A-d> :colorscheme dayfox<CR>
-nnoremap <A-h> :colorscheme hotline<CR>
-
-" enable discord-rich presence
-nnoremap <leader>d :CocCommand rpc.enable<CR>
-nnoremap <leader>D :CocCommand rpc.disable<CR>
+nnoremap <C-p> :Ouroboros<CR>
 
 call plug#begin()
 
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 
+Plug 'EdenEast/nightfox.nvim' "
 Plug 'morhetz/gruvbox'
-Plug 'ronwoch/hotline-vim'
 
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.5' }
+Plug 'jakemason/ouroboros'
+
+Plug 'udalov/kotlin-vim'
+
+Plug 'ray-x/go.nvim'
+Plug 'ray-x/guihua.lua'
 
 Plug 'vim-scripts/vim-auto-save'
+Plug 'https://github.com/preservim/vim-markdown.git'
+
+Plug 'andweeb/presence.nvim'
 
 Plug 'chrisbra/Colorizer'
 
 Plug 'nvim-orgmode/orgmode'
 
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+
 Plug 'folke/zen-mode.nvim'
+Plug 'folke/todo-comments.nvim'
 
 Plug 'itchyny/lightline.vim'
 
 Plug 'natecraddock/sessions.nvim'
-
-" more themes
-Plug 'senran101604/neotrix.vim'
-Plug 'bratpeki/truedark-vim'
-Plug 'redshifttt/tonight.nvim'
-Plug 'ronwoch/hotline-vim'
 
 call plug#end()
 
 let g:seiya_auto_enable=1
 
 colorscheme gruvbox
+"colorscheme morning
 
-if 1
-    highlight Normal ctermbg=NONE guibg=NONE
-    augroup user_colors
-      autocmd!
-      autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
-    augroup END
-endif
+
+"highlight Normal ctermbg=NONE guibg=NONE
+"augroup user_colors
+"  autocmd!
+"  autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
+"augroup END
 
 " switch windows
 nnoremap <C-z> <C-W>
 
-" presence
+" telescope
 lua << EOF
     local builtin = require('telescope.builtin')
     vim.keymap.set('n', '<leader>ff', builtin.git_files, {})
     vim.keymap.set('n', '<leader>fF', builtin.find_files, {})
     vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-    vim.keymap.set('n', '<leader>fs', builtin.grep_string, {})
     vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
     vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 EOF
@@ -201,20 +168,66 @@ let g:auto_save_no_updatetime = 1  " do not change the 'updatetime' option
 let g:auto_save_in_insert_mode = 0  " do not save while in insert mode
 let g:auto_save_silent = 1  " do not display the auto-save notification
 
-" neovide
-" let g:neovide_refresh_rate = 144
-" let g:neovide_refresh_rate_idle = 5
-" let g:neovide_cursor_animation_length=0
-" let g:neovide_cursor_vfx_mode = "harpoon"
+" markdown specific
+runtime markdown
 
 " convert org-definition to a markdown one
 nnoremap zd xxf:xhi<CR><ESC>
 
-" open ~/TODO.md on startup
-" autocmd VimEnter * :silent! tabedit ~/TODO.md
-
 " golang specific
 autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
+
+" treesitter
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all"
+  ensure_installed = { "c","java", "lua", "rust", "cpp", "javascript" },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  auto_install = false,
+
+  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+
+  highlight = {
+    -- `false` will disable the whole extension
+    enable = true,
+
+    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+    -- the name of the parser)
+    -- list of language that will be disabled
+    -- disable = { "c", "rust" },
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = true,
+  },
+}
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.haxe = {
+  install_info = {
+    url = "C:\\dev\\tree-sitter-haxe", -- local path or git repo
+    files = {"src/parser.c"},
+    -- optional entries:
+    branch = "main", -- default branch in case of git repo if different from master
+    generate_requires_npm = false, -- if stand-alone parser without npm dependencies
+    requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+  },
+  filetype = "hx", -- if filetype does not match the parser name
+}
+EOF
+
+" todo-comments
+lua << EOF
+  require("todo-comments").setup {
+  }
+EOF
 
 " lightline status bar
 set noshowmode
@@ -383,7 +396,7 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-"" coc should use these
+" coc should use these
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab

@@ -1,20 +1,10 @@
 {
+    "haxe.modulePath": "C:\\HaxeToolkit\\haxe",
     "markdownlint.config": {
         "default": true,
         "line_length": false
     },
     "coc.preferences.formatOnSave": false,
     "prettier.tabWidth": 4,
-    "prettier.printWidth": 200,
-    "languageserver": {
-        "godot": {
-            "host": "127.0.0.1",
-            "filetypes": ["gdscript"],
-            "port": 6008
-        }
-    },
-    "coc.source.vimtex.filetypes": [
-      "tex",
-      "plaintex"
-    ]
+    "prettier.printWidth": 200
 }
